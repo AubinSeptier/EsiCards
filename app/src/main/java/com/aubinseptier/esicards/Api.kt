@@ -1,4 +1,4 @@
-package com.example.androidtp2
+package com.aubinseptier.esicards
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

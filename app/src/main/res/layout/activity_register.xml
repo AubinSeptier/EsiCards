@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/secondary"
     android:backgroundTint="@color/secondary"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="450dp"
+        android:layout_height="525dp"
+        android:background="@color/secondary"
+        android:backgroundTint="@color/secondary"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,11 +22,10 @@
         app:layout_constraintVertical_bias="0.5">
 
         <TextView
-            android:id="@+id/titleLabel"
+            android:id="@+id/registerTitleLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:backgroundTint="@color/secondary"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto"
             android:text="EsiCards"
             android:textAlignment="center"
@@ -32,8 +33,32 @@
             android:textColor="@color/white"
             android:textSize="60sp" />
 
+        <TextView
+            android:id="@+id/registerSubtitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="Inscription"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
         <EditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/registerName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:fontFamily="@font/roboto"
+            android:hint="Nom"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
@@ -45,7 +70,7 @@
             android:textColorHint="@color/white" />
 
         <EditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/editTextTextPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
@@ -57,30 +82,31 @@
             android:textColorHint="@color/white" />
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             android:backgroundTint="@color/primary"
             android:fontFamily="@font/roboto"
-            android:text="Connexion" />
+            android:text="Inscription" />
 
         <TextView
-            android:id="@+id/noAccountLabel"
+            android:id="@+id/haveAccountLabel"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:fontFamily="@font/roboto"
-            android:text="Pas encore de compte ?"
+            android:text="Déjà un compte ?"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/registerRedirectButton"
+            android:id="@+id/loginRedirectButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:backgroundTint="@color/primary"
             android:fontFamily="@font/roboto"
-            android:onClick="registerNewAccount"
-            android:text="Créer un compte" />
+            android:onClick="goToLogin"
+            android:text="Retour"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondary"
+    android:backgroundTint="@color/secondary"
     tools:context=".CardsListActivity">
 
+    <LinearLayout
+        android:layout_width="380dp"
+        android:layout_height="700dp"
+        android:background="@color/secondary"
+        android:backgroundTint="@color/secondary"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/listLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="EsiCards"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textSize="34sp" />
+
+        <LinearLayout
+            android:id="@+id/sortButtons"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/alphabetSortButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="50"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/roboto"
+                android:onClick="alphaSort"
+                android:text="Ordre Alphabétique"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/lastUsedSortButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="50"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/roboto"
+                android:onClick="lastUsedSort"
+                android:text="Dernière Utilisation"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/cardsList"
+            android:layout_width="match_parent"
+            android:layout_height="490dp"
+            android:layout_marginBottom="20dp">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/addCardButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/roboto"
+            android:onClick="addCard"
+            android:text="Ajouter une carte"
+            android:textColor="@color/white" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

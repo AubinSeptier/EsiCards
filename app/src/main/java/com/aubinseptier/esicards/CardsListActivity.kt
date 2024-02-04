@@ -5,16 +5,21 @@ import android.content.Intent
 import android.media.session.MediaSession.Token
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import android.window.OnBackInvokedDispatcher
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import org.xml.sax.ErrorHandler
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class CardsListActivity : AppCompatActivity() {
     private lateinit var token: String
@@ -29,6 +34,12 @@ class CardsListActivity : AppCompatActivity() {
         saveToken()
         adapter = CardAdapter(this, cards)
         initCardsList()
+        loadCardsList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadCardsList()
     }
 
     public fun addCard(view: View){
@@ -37,11 +48,13 @@ class CardsListActivity : AppCompatActivity() {
     }
 
     public fun alphaSort(view: View){
-        cards.sortedWith(compareBy({ it.name }))
+        cards.sortBy { it.name }
+        adapter.notifyDataSetChanged()
     }
 
     public fun lastUsedSort(view: View){
-        cards.sortedWith(compareByDescending( { it.lastUsedAt }))
+        cards.sortByDescending { SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(it.lastUsedAt) }
+        adapter.notifyDataSetChanged()
     }
 
     private fun saveToken(){
@@ -59,16 +72,34 @@ class CardsListActivity : AppCompatActivity() {
     }
 
     private fun initCardsList(){
-        var cardsList = findViewById<ListView>(R.id.cardsList)
+        val cardsList = findViewById<ListView>(R.id.cardsList)
         cardsList.adapter = adapter
+        Log.d("MEUNIER-init", "Init réussi")
+    }
+
+    private fun loadCardsList(){
+        Api().get("https://esicards.lesmoulinsdudev.com/cards", ::onCardsReceived, token)
+    }
+
+    private fun onCardsReceived(responseCode: Int, cardsData: ArrayList<Card>?){
+        if(responseCode == 200 && cardsData != null){
+            cards.clear()
+            cards.addAll(cardsData)
+            runOnUiThread {
+                adapter.notifyDataSetChanged()
+            }
+        }
+        else {
+            // TO DO
+        }
     }
 }
 
 data class Card(
     val id: Int,
     val name: String,
-    val createAt: Date,
-    val lastUsedAt: Date
+    val createAt: String,
+    val lastUsedAt: String
 )
 
 class CardAdapter(private val context: Context, private val dataSource: ArrayList<Card>) : BaseAdapter() {
@@ -92,6 +123,13 @@ class CardAdapter(private val context: Context, private val dataSource: ArrayLis
 
         val cardItemName = rowView.findViewById<TextView>(R.id.cardItemName)
         val cardItemUsed = rowView.findViewById<TextView>(R.id.cardItemUsed)
+        cardItemName.text = card.name
+
+        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val date = originalFormat.parse(card.lastUsedAt)
+        val formattedDate = dateFormat.format(date)
+        cardItemUsed.text = formattedDate
 
         return rowView
     }

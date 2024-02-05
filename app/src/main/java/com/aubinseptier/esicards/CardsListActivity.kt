@@ -2,30 +2,24 @@ package com.aubinseptier.esicards
 
 import android.content.Context
 import android.content.Intent
-import android.media.session.MediaSession.Token
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import org.xml.sax.ErrorHandler
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class CardsListActivity : AppCompatActivity() {
     private lateinit var token: String
-    lateinit var adapter: CardAdapter
-    var cards = ArrayList<Card>()
+    private lateinit var adapter: CardAdapter
+    private var cards = ArrayList<Card>()
     private val mainScope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +52,18 @@ class CardsListActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
+    public fun seeCardDetails(view: View){
+        val parentView = view.parent as View
+        val listView = parentView.parent as ListView
+        val position = listView.getPositionForView(parentView)
+        val card = cards[position]
+        val cardId = card.id
+        val intent = Intent(this, CardDetailsActivity::class.java)
+        intent.putExtra("cardId", cardId)
+        intent.putExtra("token", token)
+        startActivity(intent)
+    }
+
     public fun deleteCard(view: View){
         val parentView = view.parent as View
         val listView = parentView.parent as ListView
@@ -73,7 +79,7 @@ class CardsListActivity : AppCompatActivity() {
             Api().delete("https://esicards.lesmoulinsdudev.com/cards/$cardId", ::onCardDelete, token)
         }
         builder.setNegativeButton("Non") { dialog, which ->
-
+            dialog.cancel()
         }
         val alertDialog = builder.create()
         alertDialog.show()
@@ -96,7 +102,6 @@ class CardsListActivity : AppCompatActivity() {
     private fun initCardsList(){
         val cardsList = findViewById<ListView>(R.id.cardsList)
         cardsList.adapter = adapter
-        Log.d("MEUNIER-init", "Init réussi")
     }
 
     private fun loadCardsList(){
@@ -111,17 +116,11 @@ class CardsListActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
-        else {
-            // TO DO
-        }
     }
 
     private fun onCardDelete(responseCode: Int){
         if(responseCode == 200){
             loadCardsList()
-        }
-        else {
-
         }
     }
 }

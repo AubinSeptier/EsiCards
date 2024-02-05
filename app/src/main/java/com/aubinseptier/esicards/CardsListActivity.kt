@@ -18,8 +18,8 @@ import java.util.Locale
 
 class CardsListActivity : AppCompatActivity() {
     private lateinit var token: String
-    lateinit var adapter: CardAdapter
-    var cards = ArrayList<Card>()
+    private lateinit var adapter: CardAdapter
+    private var cards = ArrayList<Card>()
     private val mainScope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,17 +116,11 @@ class CardsListActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
-        else {
-            // TO DO
-        }
     }
 
     private fun onCardDelete(responseCode: Int){
         if(responseCode == 200){
             loadCardsList()
-        }
-        else {
-
         }
     }
 }

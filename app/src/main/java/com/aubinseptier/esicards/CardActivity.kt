@@ -15,8 +15,8 @@ import java.net.CacheResponse
 import kotlin.properties.Delegates
 
 class CardActivity : AppCompatActivity() {
-    lateinit var barcodeValue: String
-    var barcodeType by Delegates.notNull<Int>()
+    private lateinit var barcodeValue: String
+    private var barcodeType by Delegates.notNull<Int>()
     private val mainScope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -119,14 +119,35 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/barcodeImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="50dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <Button
+            android:id="@+id/deleteCardDetails"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/roboto"
+            android:onClick="deleteCardDetail"
+            android:text="Supprimer la carte"
+            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/backToListButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:backgroundTint="@color/primary"
             android:fontFamily="@font/roboto"
             android:onClick="backToList"
             android:text="Retour"
             android:textColor="@color/white" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import android.window.OnBackInvokedDispatcher
+import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.xml.sax.ErrorHandler
@@ -57,6 +58,27 @@ class CardsListActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
+    public fun deleteCard(view: View){
+        val parentView = view.parent as View
+        val listView = parentView.parent as ListView
+        val position = listView.getPositionForView(parentView)
+        val card = cards[position]
+
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Voulez-vous supprimer cette carte ?")
+        builder.setTitle("Suppression de carte")
+        builder.setCancelable(false)
+        builder.setPositiveButton("Oui") { dialog, which ->
+            val cardId = card.id
+            Api().delete("https://esicards.lesmoulinsdudev.com/cards/$cardId", ::onCardDelete, token)
+        }
+        builder.setNegativeButton("Non") { dialog, which ->
+
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
     private fun saveToken(){
         val tokenStorage = TokenStorage(this)
         mainScope.launch {
@@ -91,6 +113,15 @@ class CardsListActivity : AppCompatActivity() {
         }
         else {
             // TO DO
+        }
+    }
+
+    private fun onCardDelete(responseCode: Int){
+        if(responseCode == 200){
+            loadCardsList()
+        }
+        else {
+
         }
     }
 }

@@ -36,6 +36,7 @@
         android:layout_weight="0.10"
         android:backgroundTint="@color/secondary"
         android:fontFamily="@font/roboto"
+        android:onClick="deleteCard"
         android:text="Supprimer"
         android:textAlignment="center"
         android:textColor="@color/white" />

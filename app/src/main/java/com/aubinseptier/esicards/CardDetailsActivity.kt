@@ -21,7 +21,6 @@ import kotlin.properties.Delegates
 class CardDetailsActivity : AppCompatActivity() {
     private var cardId by Delegates.notNull<Int>()
     private lateinit var token: String
-    private val mainScope = MainScope()
     private lateinit var data: String
     private lateinit var barcodeFormat: BarcodeFormat
     override fun onCreate(savedInstanceState: Bundle?) {

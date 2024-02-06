@@ -57,30 +57,32 @@ class CardDetailsActivity : AppCompatActivity() {
 
     private fun onCardDataReceived(responseCode: Int, cardData: CardDetailsData?){
         if(responseCode == 200){
-            if (cardData != null) {
-                val cardDetailsName = findViewById<TextView>(R.id.cardDetailsName)
-                val creationDate = findViewById<TextView>(R.id.creationDate)
-                val lastUsedDate = findViewById<TextView>(R.id.lastUsedDate)
-                cardDetailsName.text = cardData.name
+            runOnUiThread {
+                if (cardData != null) {
+                    val cardDetailsName = findViewById<TextView>(R.id.cardDetailsName)
+                    val creationDate = findViewById<TextView>(R.id.creationDate)
+                    val lastUsedDate = findViewById<TextView>(R.id.lastUsedDate)
+                    cardDetailsName.text = cardData.name
 
-                val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val creationDateData = originalFormat.parse(cardData.createdAt)
-                val lastUsedDateData = originalFormat.parse(cardData.lastUsedAt)
-                val formattedCreationDate = dateFormat.format(creationDateData)
-                val formattedLastUsedDate = dateFormat.format(lastUsedDateData)
-                creationDate.text = formattedCreationDate
-                lastUsedDate.text = formattedLastUsedDate
+                    val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val creationDateData = originalFormat.parse(cardData.createdAt)
+                    val lastUsedDateData = originalFormat.parse(cardData.lastUsedAt)
+                    val formattedCreationDate = dateFormat.format(creationDateData)
+                    val formattedLastUsedDate = dateFormat.format(lastUsedDateData)
+                    creationDate.text = formattedCreationDate
+                    lastUsedDate.text = formattedLastUsedDate
 
-                val barcodeText = findViewById<TextView>(R.id.barcodeText)
-                data = cardData.data
-                barcodeText.text = data
-                val barcodeType = cardData.type
-                barcodeFormat = convertBarcodeFormat(barcodeType)
-                val barcodeImage = findViewById<ImageView>(R.id.barcodeImage)
+                    val barcodeText = findViewById<TextView>(R.id.barcodeText)
+                    data = cardData.data
+                    barcodeText.text = data
+                    val barcodeType = cardData.type
+                    barcodeFormat = convertBarcodeFormat(barcodeType)
+                    val barcodeImage = findViewById<ImageView>(R.id.barcodeImage)
 
-                barcodeImage.post {
-                    generateBarcode(barcodeImage)
+                    barcodeImage.post {
+                        generateBarcode(barcodeImage)
+                    }
                 }
             }
         }

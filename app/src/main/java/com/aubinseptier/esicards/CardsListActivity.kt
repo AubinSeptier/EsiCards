@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -30,6 +31,19 @@ class CardsListActivity : AppCompatActivity() {
         adapter = CardAdapter(this, cards)
         initCardsList()
         loadCardsList()
+
+        onBackPressedDispatcher.addCallback(this) {
+            val alertDialogBuilder = AlertDialog.Builder(this@CardsListActivity)
+            alertDialogBuilder.setMessage("Voulez-vous vraiment quitter l'application?")
+            alertDialogBuilder.setPositiveButton("Oui") { dialog, which ->
+                finish()
+            }
+            alertDialogBuilder.setNegativeButton("Non") { dialog, which ->
+                dialog.cancel()
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
     }
 
     override fun onResume() {

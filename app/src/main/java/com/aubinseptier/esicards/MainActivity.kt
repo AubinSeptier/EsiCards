@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CardsListActivity::class.java)
             intent.putExtra("token", token)
             startActivity(intent)
+            finish()
         }
     }
 }

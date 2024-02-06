@@ -76,40 +76,36 @@ class CardDetailsActivity : AppCompatActivity() {
                 data = cardData.data
                 val barcodeType = cardData.type
                 barcodeFormat = convertBarcodeFormat(barcodeType)
+                val barcodeImage = findViewById<ImageView>(R.id.barcodeImage)
 
-                generateBarcode()
-
+                barcodeImage.post {
+                    generateBarcode(barcodeImage)
+                }
             }
         }
     }
 
-    private fun generateBarcode(){
-        val barcodeImage = findViewById<ImageView>(R.id.barcodeImage)
-        barcodeImage.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                barcodeImage.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val width = barcodeImage.width
-                val height = barcodeImage.height
+    private fun generateBarcode(barcodeImage: ImageView){
+        val width = barcodeImage.width
+        val height = barcodeImage.height
 
-                val bitMatrix = MultiFormatWriter().encode(
-                    data,
-                    barcodeFormat,
-                    width,
-                    height
-                )
-                val bitmap = Bitmap.createBitmap(
-                    width,
-                    height,
-                    Bitmap.Config.RGB_565
-                )
-                for (i in 0 until width) {
-                    for (j in 0 until height) {
-                        bitmap.setPixel(i, j, if(bitMatrix[i, j]) Color.BLACK else Color.WHITE)
-                    }
-                }
-                barcodeImage.setImageBitmap(bitmap)
+        val bitMatrix = MultiFormatWriter().encode(
+            data,
+            barcodeFormat,
+            width,
+            height
+        )
+        val bitmap = Bitmap.createBitmap(
+            width,
+            height,
+            Bitmap.Config.RGB_565
+        )
+        for (i in 0 until width) {
+            for (j in 0 until height) {
+                bitmap.setPixel(i, j, if(bitMatrix[i, j]) Color.BLACK else Color.WHITE)
             }
-        })
+        }
+        barcodeImage.setImageBitmap(bitmap)
     }
 
     private fun convertBarcodeFormat(type: Int): BarcodeFormat {

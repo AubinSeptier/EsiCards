@@ -106,13 +106,6 @@ class CardsListActivity : AppCompatActivity() {
         }
     }
 
-    private fun readToken(){
-        val tokenStorage = TokenStorage(this)
-        mainScope.launch {
-            tokenStorage.read()
-        }
-    }
-
     private fun initCardsList(){
         val cardsList = findViewById<ListView>(R.id.cardsList)
         cardsList.adapter = adapter

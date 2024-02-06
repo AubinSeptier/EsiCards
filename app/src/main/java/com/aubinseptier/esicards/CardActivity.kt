@@ -2,7 +2,6 @@ package com.aubinseptier.esicards
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -11,7 +10,6 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.net.CacheResponse
 import kotlin.properties.Delegates
 
 class CardActivity : AppCompatActivity() {

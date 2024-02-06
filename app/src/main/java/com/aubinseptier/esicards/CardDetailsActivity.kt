@@ -2,17 +2,14 @@ package com.aubinseptier.esicards
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.BarcodeFormat
-import kotlinx.coroutines.MainScope
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.Locale

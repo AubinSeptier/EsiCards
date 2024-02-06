@@ -72,7 +72,9 @@ class CardDetailsActivity : AppCompatActivity() {
                 creationDate.text = formattedCreationDate
                 lastUsedDate.text = formattedLastUsedDate
 
+                val barcodeText = findViewById<TextView>(R.id.barcodeText)
                 data = cardData.data
+                barcodeText.text = data
                 val barcodeType = cardData.type
                 barcodeFormat = convertBarcodeFormat(barcodeType)
                 val barcodeImage = findViewById<ImageView>(R.id.barcodeImage)
